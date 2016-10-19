@@ -17,6 +17,18 @@ pyglm is a Python 3 implementation of the OpenGL math library [glm](http://glm.g
 
 >\*\* Test units are only implemented for vectors so far.
 
+## Planned Features
+
+- Test units for matrices
+- Other transforms and operations, such as project, unproject and lookat
+- Geometric functions, such as faceForward, reflect and refract
+- Math functions such as mix, clamp, step, min/max
+- Noise functions, such as Perlin Noise, Simplex Noise, fractal noise, etc
+- Color space conversions
+- Quaternions
+- Other matrix dimensions (?)
+- Test units for each new set of features
+
 ## Dependencies
 
 There are no explicit dependencies on the module apart from Python 3. This might change in the future, but I will try to keep third-party dependencies to a minimum, if they become necessary.
