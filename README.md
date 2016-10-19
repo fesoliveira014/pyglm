@@ -14,6 +14,7 @@ pyglm is a Python 3 implementation of the OpenGL math library [glm](http://glm.g
 - GLSL syntax 
 
 >\* The operator overload follows glm convention, such that a product between vectors: let a, b be two 2d vectors, `a * b = (a.x * b.x, a.y * b.y)`
+
 >\*\* Test units are only implemented for vectors so far.
 
 ## Dependencies
@@ -31,8 +32,7 @@ To use the modules, just import the module into your project and use it.
 >>> u = vec2(1,2)
 >>> v = vec2(3,4)
 >>>
->>> w = distance(u,v)
->>> w
+>>> distance(u,v)
 2.8284271247461903
 >>>
 >>> A = mat2.fromVec2(u,v)
