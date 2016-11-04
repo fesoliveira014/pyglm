@@ -94,6 +94,29 @@ def ortho(left, right, bottom, top, zNear=None, zFar=None):
 
     return Result
 
+def frustum(left, right, bottom, top, zNear, zFar):
+    '''
+    Creates a frustum matrix.
+    
+    @param left 
+    @param right 
+    @param bottom 
+    @param top 
+    @param zNear 
+    @param zFar 
+    '''
+
+    result = mat4()
+    result[0][0] = (2 * zNear) / (right - left)
+    result[1][1] = (2 * zNear) / (top - bottom)
+    result[2][0] = (right + left) / (right - left)
+    result[2][1] = (top + bottom) / (top - bottom)
+    result[2][2] = -(zFar + zNear) / (zFar - zNear)
+    result[2][3] = -1
+    result[3][2] = -(2 * zFar * zNear) / (zFar - zNear)
+
+    return result
+
 def perspective(fovy, aspect, zNear, zFar):
     '''
     Creates a matrix for a symetric perspective-view frustum based on the default handedness.
@@ -104,7 +127,7 @@ def perspective(fovy, aspect, zNear, zFar):
     @param far Specifies the distance from the viewer to the far clipping plane (always positive).
     '''
 
-    if not abs(aspect - 2.220446049250313e-16) > 0:
+    if not abs(aspect - 2.220446049250313e-8) > 0:
         raise FloatingPointError("The aspect must be bigger than 0.")
 
     tanHalfFovy = tan(fovy / 2)
@@ -128,6 +151,17 @@ def project(obj, model, proj, viewport):
     @return Return the computed window coordinates.
     '''
 
+    tmp = vec4.fromVec3(obj, 1)
+    tmp = model * tmp
+    tmp = proj * tmp
+
+    tmp /= tmp.w
+    tmp = tmp * 0.5 + 0.5
+    tmp[0] = tmp[0] * viewport[2] + viewport[0]
+    tmp[1] = tmp[1] * viewport[3] + viewport[1]
+
+    return vec3.fromVec4(tmp)
+
 def unproject(win, model, proj, viewport):
     '''
     Map the specified window coordinates (win.x, win.y, win.z) into object coordinates.
@@ -138,11 +172,43 @@ def unproject(win, model, proj, viewport):
     @param viewport Specifies the viewport
     '''
 
+    Inverse = inverse(proj * model)
+
+    tmp = vec4.fromVec3(win, 1)
+    tmp.x = (tmp.x - viewport[0]) / viewport[2]
+    tmp.y = (tmp.x - viewport[1]) / viewport[3]
+    tmp = tmp * 2 - 1
+
+    obj = Inverse * tmp
+    obj /= obj.w
+
+    return vec3.fromVec4(obj)
+
 def lookAt(eye, center, up):
     '''
-    Build a look at view matrix based on the default handedness.
+    Build a look at view matrix
     
     @param eye Position of the camera
     @param center Position where the camera is looking at
     @param up Normalized up vector, how the camera is oriented. Typically (0, 0, 1)
     '''
+
+    f = normalize(center - eye)
+    s = normalize(cross(f, up))
+    u = cross(s, f)
+
+    result = mat4.identity()
+    result[0][0] = s.x;
+    result[1][0] = s.y;
+    result[2][0] = s.z;
+    result[0][1] = u.x;
+    result[1][1] = u.y;
+    result[2][1] = u.z;
+    result[0][2] =-f.x;
+    result[1][2] =-f.y;
+    result[2][2] =-f.z;
+    result[3][0] =-dot(s, eye);
+    result[3][1] =-dot(u, eye);
+    result[3][2] = dot(f, eye);
+
+    return result

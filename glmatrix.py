@@ -101,6 +101,20 @@ class mat2(object):
         self = self / other
         return self
 
+    def __radd__(self, other):
+        self = self + other
+        return self
+
+    def __rsub__(self, other):
+        self = self - other
+        return self
+
+    def __rmul__(self, other):
+        pass
+
+    def __rtruediv__(self, other):
+        pass
+
     def __eq__(self, other):
         return (self[0] == other[0] and self[1] == other[1])
 
@@ -342,6 +356,20 @@ class mat3(object):
     def __itruediv__(self, other):
         self = self / other
         return self
+
+    def __radd__(self, other):
+        self = self + other
+        return self
+
+    def __rsub__(self, other):
+        self = self - other
+        return self
+
+    def __rmul__(self, other):
+        pass
+
+    def __rtruediv__(self, other):
+        pass
 
     def __eq__(self, other):
         return (self[0] == other[0] and self[1] == other[1] and self[2] == other[2])
@@ -726,6 +754,20 @@ class mat4(object):
     def __itruediv__(self, other):
         self = self / other
         return self
+
+    def __radd__(self, other):
+        self = self + other
+        return self
+
+    def __rsub__(self, other):
+        self = self - other
+        return self
+
+    def __rmul__(self, other):
+        pass
+
+    def __rtruediv__(self, other):
+        pass
 
     def __eq__(self, other):
         return (self[0] == other[0] and self[1] == other[1] and self[2] == other[2])

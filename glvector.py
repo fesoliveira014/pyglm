@@ -45,11 +45,19 @@ class vec2(object):
     def __iadd__(self, other):
         self = self + other
         return self
+
+    def __radd__(self, other):
+        self = self + other
+        return self
         
     def __sub__(self, other):
         return self.__add__(-other)
 
     def __isub__(self, other):
+        self = self - other
+        return self
+
+    def __rsub__(self, other):
         self = self - other
         return self
 
@@ -73,16 +81,40 @@ class vec2(object):
         self = self * other
         return self
 
+    def __rmul__(self, other):
+        self = self * other
+        return self
+
     def __truediv__(self, other):   
         if type(other) is int or type(other) == float:
             x = self.x / other
             y = self.y / other
             return vec2(x, y)
 
-        raise("Unknown operation")
+        raise("Unknown operation")    
 
     def __itruediv__(self, other):
         self = self / other
+        return self
+
+    def __rtruediv__(self, other):
+        self = self / other
+        return self
+
+    def __floordiv__(self, other):
+        if type(other) is int:
+            x = self.x // other
+            y = self.y // other
+            return vec2(x, y)
+
+        raise("Unknown operation")
+
+    def __ifloordiv__(self, other):
+        self = self // other
+        return self
+
+    def __rfloordiv__(self, other):
+        self = self // other
         return self
 
     def __eq__(self, other):
@@ -155,7 +187,16 @@ class vec2(object):
     @classmethod
     def fromVec2(cls, vec):
         return cls(vec.x, vec.y)
+
+    @classmethod
+    def fromVec3(cls, vec):
+        return cls(vec.x, vec.y)        
     
+    @classmethod
+    def fromVec4(cls, vec):
+        return cls(vec.x, vec.y)
+
+
 
 class vec3(object):
     def __init__(self, x=0, y=0, z=0):
@@ -212,11 +253,19 @@ class vec3(object):
     def __iadd__(self, other):
         self = self + other
         return self
+
+    def __radd__(self, other):
+        self = self + other
+        return self
         
     def __sub__(self, other):
         return self.__add__(-other)
 
     def __isub__(self, other):
+        self = self - other
+        return self
+
+    def __rsub__(self, other):
         self = self - other
         return self
 
@@ -243,6 +292,10 @@ class vec3(object):
         self = self * other
         return self
 
+    def __rmul__(self, other):
+        self = self * other
+        return self
+
     def __truediv__(self, other):   
         if type(other) is int or type(other) == float:
             x = self.x / other
@@ -254,6 +307,27 @@ class vec3(object):
 
     def __itruediv__(self, other):
         self = self / other
+        return self
+
+    def __rtruediv__(self, other):
+        self = self / other
+        return self
+
+    def __floordiv__(self, other):
+        if type(other) is int:
+            x = self.x // other
+            y = self.y // other
+            z = self.z // other
+            return vec3(x, y, z)
+
+        raise("Unknown operation")
+
+    def __ifloordiv__(self, other):
+        self = self // other
+        return self
+
+    def __rfloordiv__(self, other):
+        self = self // other
         return self
 
     def __eq__(self, other):
@@ -338,6 +412,9 @@ class vec3(object):
     def fromVec3(cls, vec):
         return cls(vec.x, vec.y, vec.z)
 
+    @classmethod
+    def fromVec4(cls, vec):
+        return cls(vec.x, vec.y, vec.z)
 
 
 
@@ -400,11 +477,19 @@ class vec4(object):
     def __iadd__(self, other):
         self = self + other
         return self
+
+    def __radd__(self, other):
+        self = self + other
+        return self
         
     def __sub__(self, other):
         return self.__add__(-other)
 
     def __isub__(self, other):
+        self = self - other
+        return self
+
+    def __rsub__(self, other):
         self = self - other
         return self
 
@@ -434,6 +519,10 @@ class vec4(object):
         self = self * other
         return self
 
+    def __rmul__(self, other):
+        self = self * other
+        return self
+
     def __truediv__(self, other):   
         if type(other) is int or type(other) == float:
             x = self.x / other
@@ -445,6 +534,28 @@ class vec4(object):
         raise("Unknown operation")
 
     def __itruediv__(self, other):
+        self = self / other
+        return self
+
+    def __rtruediv__(self, other):
+        self = self / other
+        return self
+
+    def __floordiv__(self, other):   
+        if type(other) is int:
+            x = self.x // other
+            y = self.y // other
+            z = self.z // other
+            w = self.w // other
+            return vec4(x, y, z, w)
+
+        raise("Unknown operation")
+
+    def __ifloordiv__(self, other):
+        self = self / other
+        return self
+
+    def __rfloordiv__(self, other):
         self = self / other
         return self
 
