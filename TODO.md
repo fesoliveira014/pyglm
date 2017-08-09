@@ -1,7 +1,7 @@
 # TODO
 
 ## Core
-- [ ] Common functions:
+- [x] Common functions:
     - [x] smoothstep
     - [ ] ~~isnan, isinf~~
     - [x] fused multiply-add (fma)
