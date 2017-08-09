@@ -2,11 +2,11 @@
 
 ## Core
 - [ ] Common functions:
-    - [ ] smoothstep
-    - [ ] isnan, isinf
-    - [ ] fused multiply-add (fma)
-    - [ ] frexp (x = significand * exp(2, expoent))
-    - [ ] ldexp (significand * exp(2, expoent))
+    - [x] smoothstep
+    ~~- [ ] isnan, isinf~~
+    - [x] fused multiply-add (fma)
+    ~~- [ ] frexp (x = significand * exp(2, expoent))
+    - [ ] ldexp (significand * exp(2, expoent))~~
 - [ ] Geometric functions
     - [ ] faceForward
     - [ ] reflect
