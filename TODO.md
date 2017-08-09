@@ -7,10 +7,10 @@
     - [x] fused multiply-add (fma)
     - [ ] ~~frexp (x = significand * exp(2, expoent))~~
     - [ ] ~~ldexp (significand * exp(2, expoent))~~
-- [ ] Geometric functions
-    - [ ] faceForward
-    - [ ] reflect
-    - [ ] refract
+- [x] Geometric functions
+    - [x] faceForward
+    - [x] reflect
+    - [x] refract
 - [ ] Trigonometric functions
     - [ ] radians, degrees
     - [ ] sin, cos, tan
