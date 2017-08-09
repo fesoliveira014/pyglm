@@ -1,6 +1,6 @@
+from math import cos, sin, tan
 from glvector import *
 from glmatrix import *
-from math import cos, sin, tan
 
 def translate(m, v):
     '''
@@ -132,13 +132,13 @@ def perspective(fovy, aspect, zNear, zFar):
 
     tanHalfFovy = tan(fovy / 2)
 
-    Result = mat4()
-    Result[0][0] = 1 / (aspect * tanHalfFovy)
-    Result[1][1] = 1 / (tanHalfFovy)
-    Result[2][2] = - (zFar + zNear) / (zFar - zNear)
-    Result[2][3] = - 1
-    Result[3][2] = - (2 * zFar * zNear) / (zFar - zNear)
-    return Result;
+    ret = mat4()
+    ret[0][0] = 1 / (aspect * tanHalfFovy)
+    ret[1][1] = 1 / (tanHalfFovy)
+    ret[2][2] = - (zFar + zNear) / (zFar - zNear)
+    ret[2][3] = - 1
+    ret[3][2] = - (2 * zFar * zNear) / (zFar - zNear)
+    return ret
 
 def project(obj, model, proj, viewport):
     '''
@@ -172,14 +172,14 @@ def unproject(win, model, proj, viewport):
     @param viewport Specifies the viewport
     '''
 
-    Inverse = inverse(proj * model)
+    inv = inverse(proj * model)
 
     tmp = vec4.fromVec3(win, 1)
     tmp.x = (tmp.x - viewport[0]) / viewport[2]
     tmp.y = (tmp.x - viewport[1]) / viewport[3]
     tmp = tmp * 2 - 1
 
-    obj = Inverse * tmp
+    obj = inv * tmp
     obj /= obj.w
 
     return vec3.fromVec4(obj)
@@ -198,17 +198,17 @@ def lookAt(eye, center, up):
     u = cross(s, f)
 
     result = mat4.identity()
-    result[0][0] = s.x;
-    result[1][0] = s.y;
-    result[2][0] = s.z;
-    result[0][1] = u.x;
-    result[1][1] = u.y;
-    result[2][1] = u.z;
-    result[0][2] =-f.x;
-    result[1][2] =-f.y;
-    result[2][2] =-f.z;
-    result[3][0] =-dot(s, eye);
-    result[3][1] =-dot(u, eye);
-    result[3][2] = dot(f, eye);
+    result[0][0] = s.x
+    result[1][0] = s.y
+    result[2][0] = s.z
+    result[0][1] = u.x
+    result[1][1] = u.y
+    result[2][1] = u.z
+    result[0][2] =-f.x
+    result[1][2] =-f.y
+    result[2][2] =-f.z
+    result[3][0] =-dot(s, eye)
+    result[3][1] =-dot(u, eye)
+    result[3][2] = dot(f, eye)
 
     return result

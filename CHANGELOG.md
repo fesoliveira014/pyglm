@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.3
+
+### New
+
+- Vector
+    - Added the following functions: faceForward, reflect and refract
+        - These are found under geometric function in GLM, but since most geometric functions are already implemented as overloads, simply adding these functions here serves its purpose
+- Common:
+    - Added the following functions: step, smoothstep and fma
+
+- Changed standard identation from tabs to spaces    
+- Minor code refactor on some variable names and imports
+
+## Known Issues
+
+- No changes from previous version
+
 ## v0.2
 
 ### New

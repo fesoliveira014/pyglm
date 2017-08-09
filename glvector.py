@@ -1,5 +1,5 @@
 import math
-from glmatrix import *
+import glmatrix
 
 class vec2(object):
     def __init__(self, x=0, y=0):
@@ -70,7 +70,7 @@ class vec2(object):
             x = self.x * other.x
             y = self.y * other.y
             return vec2(x, y)
-        elif type(other) is mat2:
+        elif type(other) is glmatrix.mat2:
             a = other[0][0] * self[0] + other[1][0] * self[1]
             b = other[0][1] * self[0] + other[1][1] * self[1]
             return vec2(a,b)
@@ -244,7 +244,7 @@ class vec3(object):
             y = self.y + other.y
             z = self.z + other.z
             return vec3(x, y, z)
-        elif type(other) is mat3:
+        elif type(other) is glmatrix.mat3:
             a = other[0][0] * self[0] + other[1][0] * self[1] + other[2][0] * self[2]
             b = other[0][1] * self[0] + other[1][1] * self[1] + other[2][1] * self[2]
             c = other[0][2] * self[0] + other[1][2] * self[1] + other[2][2] * self[2]
@@ -506,7 +506,7 @@ class vec4(object):
             z = self.z * other.z
             w = self.w * other.w
             return vec4(x, y, z, w)
-        elif type(other) is mat4:
+        elif type(other) is glmatrix.mat4:
             a = other[0][0] * self[0] + other[1][0] * self[1] + other[2][0] * self[2] + other[3][0] * self[3]
             b = other[0][1] * self[0] + other[1][1] * self[1] + other[2][1] * self[2] + other[3][1] * self[3]
             c = other[0][2] * self[0] + other[1][2] * self[1] + other[2][2] * self[2] + other[3][2] * self[3]
@@ -711,3 +711,19 @@ def normalize(u):
     except TypeError as err:
         print("Type Error: " + err)
 
+###################################################
+## Geometric operations
+###################################################
+
+def faceforward(N, I, Nref):
+    return N if dot(Nref, I) < 0.0 else -N
+
+def reflect(I, N):
+    return I - N * dot(N, I) * 2.0
+
+def refract(I, N, eta):
+    dotValue = dot(N, I)
+    k = 1 - eta * eta * (1 - dotValue ** 2)
+    return (eta * I - (eta * dotValue + math.sqrt(k)) * N) * (1.0 if k >= 0.0 else 0.0)
+
+###################################################
