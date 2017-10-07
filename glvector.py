@@ -176,6 +176,9 @@ class vec2(object):
     def __repr__(self):
         return "vec2(" + str(self.x) + "," + str(self.y)    + ")"
 
+    def __len__():
+        return 2
+
     @property
     def length(self):
         return math.sqrt(self.x * self.x + self.y * self.y)
@@ -395,6 +398,9 @@ class vec3(object):
 
     def __repr__(self):
         return "vec3(" + str(self.x) + "," + str(self.y)    + "," + str(self.z) + ")"
+
+    def __len__():
+        return 3
 
     @property
     def length(self):
@@ -631,6 +637,9 @@ class vec4(object):
 
     def __repr__(self):
         return "vec4(" + str(self.x) + "," + str(self.y)    + "," + str(self.z) + "," + str(self.w) + ")"
+
+    def __len__():
+        return 4
 
     @property
     def length(self):
