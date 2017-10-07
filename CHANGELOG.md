@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.1
+
+### New
+
+- Vector
+    - Fixed wrong `raise`: no exception was being thrown when and it caused an error
+    - Added `__len__` method to all vector sizes
+    - Exchanged all `type()` calls to `isinstance()` to allow iheritance of vector types
+
 ## v0.3
 
 ### New
