@@ -1,4 +1,5 @@
 import unittest
+from glmatrix import *
 from glvector import *
 import math
 

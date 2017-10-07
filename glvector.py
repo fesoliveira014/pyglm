@@ -32,15 +32,15 @@ class vec2(object):
         return iter([self.x, self.y])
 
     def __add__(self, other):
-        if type(other) is int or type(other) is float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x + other
             y = self.y + other
             return vec2(x, y)
-        elif type(other) is vec2:
+        elif isinstance(other, vec2):
             x = self.x + other.x
             y = self.y + other.y
             return vec2(x, y)
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __iadd__(self, other):
         self = self + other
@@ -62,20 +62,20 @@ class vec2(object):
         return self
 
     def __mul__(self, other):
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x * other
             y = self.y * other
             return vec2(x, y)
-        elif type(other) is vec2:
+        elif isinstance(other, vec2):
             x = self.x * other.x
             y = self.y * other.y
             return vec2(x, y)
-        elif type(other) is glmatrix.mat2:
+        elif isinstance(other, glmatrix.mat2):
             a = other[0][0] * self[0] + other[1][0] * self[1]
             b = other[0][1] * self[0] + other[1][1] * self[1]
             return vec2(a,b)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __imul__(self, other):
         self = self * other
@@ -86,12 +86,12 @@ class vec2(object):
         return self
 
     def __truediv__(self, other):   
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x / other
             y = self.y / other
             return vec2(x, y)
 
-        raise("Unknown operation")    
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))    
 
     def __itruediv__(self, other):
         self = self / other
@@ -102,12 +102,12 @@ class vec2(object):
         return self
 
     def __floordiv__(self, other):
-        if type(other) is int:
+        if isinstance(other, int):
             x = self.x // other
             y = self.y // other
             return vec2(x, y)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __ifloordiv__(self, other):
         self = self // other
@@ -176,7 +176,7 @@ class vec2(object):
     def __repr__(self):
         return "vec2(" + str(self.x) + "," + str(self.y)    + ")"
 
-    def __len__():
+    def __len__(self):
         return 2
 
     @property
@@ -237,21 +237,21 @@ class vec3(object):
         return iter([self.x, self.y, self.z])
 
     def __add__(self, other):
-        if type(other) is int or type(other) is float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x + other
             y = self.y + other
             z = self.z + other
             return vec3(x, y, z)
-        elif type(other) is vec3:
+        elif isinstance(other, vec3):
             x = self.x + other.x
             y = self.y + other.y
             z = self.z + other.z
             return vec3(x, y, z)
-        elif type(other) is glmatrix.mat3:
+        elif isinstance(other, glmatrix.mat3):
             a = other[0][0] * self[0] + other[1][0] * self[1] + other[2][0] * self[2]
             b = other[0][1] * self[0] + other[1][1] * self[1] + other[2][1] * self[2]
             c = other[0][2] * self[0] + other[1][2] * self[1] + other[2][2] * self[2]
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __iadd__(self, other):
         self = self + other
@@ -273,23 +273,23 @@ class vec3(object):
         return self
 
     def __mul__(self, other):
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x * other
             y = self.y * other
             z = self.z * other
             return vec3(x, y, z)
-        elif type(other) is vec3:
+        elif isinstance(other, vec3):
             x = self.x * other.x
             y = self.y * other.y
             z = self.z * other.z
             return vec3(x, y, z)
-        elif type(other) is mat3:
+        elif isinstance(other, glmatrix.mat3):
             a = other[0][0] * self[0] + other[1][0] * self[1] + other[2][0] * self[2]
             b = other[0][1] * self[0] + other[1][1] * self[1] + other[2][1] * self[2]
             c = other[0][2] * self[0] + other[1][2] * self[1] + other[2][2] * self[2]
             return vec3(a,b,c)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __imul__(self, other):
         self = self * other
@@ -300,13 +300,13 @@ class vec3(object):
         return self
 
     def __truediv__(self, other):   
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x / other
             y = self.y / other
             z = self.z / other
             return vec3(x, y, z)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __itruediv__(self, other):
         self = self / other
@@ -317,13 +317,13 @@ class vec3(object):
         return self
 
     def __floordiv__(self, other):
-        if type(other) is int:
+        if isinstance(other, int):
             x = self.x // other
             y = self.y // other
             z = self.z // other
             return vec3(x, y, z)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __ifloordiv__(self, other):
         self = self // other
@@ -399,7 +399,7 @@ class vec3(object):
     def __repr__(self):
         return "vec3(" + str(self.x) + "," + str(self.y)    + "," + str(self.z) + ")"
 
-    def __len__():
+    def __len__(self):
         return 3
 
     @property
@@ -466,19 +466,19 @@ class vec4(object):
         return iter([self.x, self.y, self.z, self.w])
 
     def __add__(self, other):
-        if type(other) is int or type(other) is float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x + other
             y = self.y + other
             z = self.z + other
             w = self.w + other
             return vec4(x, y, z, w)
-        elif type(other) is vec4:
+        elif isinstance(other, vec4):
             x = self.x + other.x
             y = self.y + other.y
             z = self.z + other.z
             w = self.w + other.w
             return vec4(x, y, z, w)
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __iadd__(self, other):
         self = self + other
@@ -500,26 +500,26 @@ class vec4(object):
         return self
 
     def __mul__(self, other):
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x * other
             y = self.y * other
             z = self.z * other
             w = self.w * other
             return vec4(x, y, z, w)
-        elif type(other) is vec4:
+        elif isinstance(other, vec4):
             x = self.x * other.x
             y = self.y * other.y
             z = self.z * other.z
             w = self.w * other.w
             return vec4(x, y, z, w)
-        elif type(other) is glmatrix.mat4:
+        elif isinstance(other, glmatrix.mat4):
             a = other[0][0] * self[0] + other[1][0] * self[1] + other[2][0] * self[2] + other[3][0] * self[3]
             b = other[0][1] * self[0] + other[1][1] * self[1] + other[2][1] * self[2] + other[3][1] * self[3]
             c = other[0][2] * self[0] + other[1][2] * self[1] + other[2][2] * self[2] + other[3][2] * self[3]
             d = other[0][3] * self[0] + other[1][3] * self[1] + other[2][3] * self[2] + other[3][3] * self[3]
             return vec4(a, b, c, d)
         
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __imul__(self, other):
         self = self * other
@@ -530,14 +530,14 @@ class vec4(object):
         return self
 
     def __truediv__(self, other):   
-        if type(other) is int or type(other) == float:
+        if isinstance(other, int) or isinstance(other, float):
             x = self.x / other
             y = self.y / other
             z = self.z / other
             w = self.w / other
             return vec4(x, y, z, w)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __itruediv__(self, other):
         self = self / other
@@ -548,14 +548,14 @@ class vec4(object):
         return self
 
     def __floordiv__(self, other):   
-        if type(other) is int:
+        if isinstance(other, int):
             x = self.x // other
             y = self.y // other
             z = self.z // other
             w = self.w // other
             return vec4(x, y, z, w)
 
-        raise("Unknown operation")
+        raise TypeError("Unknown type for right hand argument: {}".format(type(other)))
 
     def __ifloordiv__(self, other):
         self = self / other
@@ -638,7 +638,7 @@ class vec4(object):
     def __repr__(self):
         return "vec4(" + str(self.x) + "," + str(self.y)    + "," + str(self.z) + "," + str(self.w) + ")"
 
-    def __len__():
+    def __len__(self):
         return 4
 
     @property
@@ -664,14 +664,14 @@ class vec4(object):
 
 def dot(u, v):
     try:
-        if type(u) == type(v):
-            if type(u) == vec2:
+        if isinstance(u, type(v)) or isinstance(v, type(u)) :
+            if isinstance(u, vec2):
                 return u.x * v.x + u.y * v.y
 
-            elif type(u) == vec3:
+            elif isinstance(u, vec3):
                 return u.x * v.x + u.y * v.y + u.z * v.z
 
-            elif type(u) == vec4:
+            elif isinstance(u, vec4):
                 return u.x * v.x + u.y * v.y + u.z * v.z + u.w * v.w
         else:
             raise TypeError("Parameters must be vecs of the same type.")
@@ -680,7 +680,7 @@ def dot(u, v):
 
 def cross(u, v):
     try:
-        if type(u) == type(v) and type(u) is vec3:
+        if isinstance(u, type(v)) or isinstance(v, type(u))  and isinstance(u, vec3):
             x = u.y * v.z - u.z * v.y
             y = u.z * v.x - u.x * v.z
             z = u.x * v.y - u.y * v.x
@@ -693,8 +693,8 @@ def cross(u, v):
 
 def distance(u, v):
     try:
-        if type(u) == type(v):
-            if type(u) == vec2 or type(u) == vec3 or type(u) == vec4:
+        if isinstance(u, type(v)) or isinstance(v, type(u)) :
+            if isinstance(u, vec2) or isinstance(u, vec3) or isinstance(u, vec4):
                 res = v - u
                 return res.length
         else:
@@ -704,7 +704,7 @@ def distance(u, v):
 
 def length(u):
     try:
-        if type(u) == vec2 or type(u) == vec3 or type(u) == vec4:
+        if isinstance(u, vec2) or isinstance(u, vec3) or isinstance(u, vec4):
             return u.length
         else:
             raise TypeError("Parameter must be a vector.")
@@ -713,7 +713,7 @@ def length(u):
 
 def normalize(u):
     try:
-        if type(u) == vec2 or type(u) == vec3 or type(u) == vec4:
+        if isinstance(u, vec2) or isinstance(u, vec3) or isinstance(u, vec4):
             return u.unit
         else:
             raise TypeError("Parameter must be a vector.")

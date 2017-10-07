@@ -1,9 +1,9 @@
 import math
-from glvector import *
+import glvector
 
 class mat2(object):
     def __init__(self, a=0, b=0, c=0, d=0):
-        self.cols = [vec2(a,b), vec2(c,d)]
+        self.cols = [glvector.vec2(a,b), glvector.vec2(c,d)]
         
     def __getitem__(self, key):
         if type(key) is int:
@@ -66,10 +66,10 @@ class mat2(object):
             c = self[1][0] * other[0][0] + self[1][1] * other[1][0]
             d = self[1][0] * other[0][1] + self[1][1] * other[1][1]
             return mat2(a,b,c,d)
-        elif type(other) is vec2:
+        elif type(other) is glvector.vec2:
             a = self[0][0] * other[0] + self[0][1] * other[1]
             b = self[1][0] * other[0] + self[1][1] * other[1]
-            return vec2(a,b)
+            return glvector.vec2(a,b)
         else:
             raise TypeError("Invalid type.")
 
@@ -179,11 +179,11 @@ class mat2(object):
                          str(self[1][0]) + ', ' + str(self[1][1]) + ")"
 
     @classmethod
-    def fromVec2(cls, vec1, vec2):
-        a = vec1[0]
-        b = vec1[1]
-        c = vec2[0]
-        d = vec2[1]
+    def fromVec2(cls, u, v):
+        a = u[0]
+        b = u[1]
+        c = v[0]
+        d = v[1]
         return cls(a,b,c,d)
     
     @classmethod
@@ -224,7 +224,7 @@ class mat2(object):
 
 class mat3(object):
     def __init__(self, a=0, b=0, c=0, d=0, e=0, f=0, g=0, h=0, i=0):
-        self.cols = [vec3(a,b,c), vec3(d,e,f), vec3(g,h,i)]
+        self.cols = [glvector.vec3(a,b,c), glvector.vec3(d,e,f), glvector.vec3(g,h,i)]
         
     def __getitem__(self, key):
         if type(key) is int:
@@ -316,11 +316,11 @@ class mat3(object):
             h = self[2][0] * other[0][1] + self[2][1] * other[1][1] + self[2][2] * other[2][1]
             i = self[2][0] * other[0][2] + self[2][1] * other[1][2] + self[2][2] * other[2][2]
             return mat3(a,b,c,d,e,f,g,h,i)
-        elif type(other) is vec3:
+        elif type(other) is glvector.vec3:
             a = self[0][0] * other[0] + self[0][1] * other[1] + self[0][2] * other[2]
             b = self[1][0] * other[0] + self[1][1] * other[1] + self[1][2] * other[2]
             c = self[2][0] * other[0] + self[2][1] * other[1] + self[2][2] * other[2]
-            return vec3(a,b,c)
+            return glvector.vec3(a,b,c)
         else:
             raise TypeError("Invalid type.")
 
@@ -508,7 +508,7 @@ class mat3(object):
 
     @classmethod
     def zero(cls):
-        return cls();
+        return cls()
 
     @classmethod
     def identity(cls):
@@ -572,7 +572,7 @@ class mat3(object):
 
 class mat4(object):
     def __init__(self, a=0, b=0, c=0, d=0, e=0, f=0, g=0, h=0, i=0, j=0, k=0, l=0, m=0, n=0, o=0, p=0):
-        self.cols = [vec4(a,b,c,d), vec4(e,f,g,h), vec4(i,j,k,l), vec4(m,n,o,p)]
+        self.cols = [glvector.vec4(a,b,c,d), glvector.vec4(e,f,g,h), glvector.vec4(i,j,k,l), glvector.vec4(m,n,o,p)]
         
     def __getitem__(self, key):
         if type(key) is int:
@@ -706,12 +706,12 @@ class mat4(object):
             o = self[3][0] * other[0][2] + self[3][1] * other[1][2] + self[3][2] * other[2][2] + self[3][3] * other[3][2]
             p = self[3][0] * other[0][3] + self[3][1] * other[1][3] + self[3][2] * other[2][3] + self[3][3] * other[3][3]
             return mat4(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
-        elif type(other) is vec4:
+        elif type(other) is glvector.vec4:
             a = self[0][0] * other[0] + self[0][1] * other[1] + self[0][2] * other[2] + self[0][3] * other[3]
             b = self[1][0] * other[0] + self[1][1] * other[1] + self[1][2] * other[2] + self[1][3] * other[3]
             c = self[2][0] * other[0] + self[2][1] * other[1] + self[2][2] * other[2] + self[2][3] * other[3]
             d = self[3][0] * other[0] + self[3][1] * other[1] + self[3][2] * other[2] + self[3][3] * other[3]
-            return vec3(a,b,c)
+            return glvector.vec3(a,b,c)
         else:
             raise TypeError("Invalid type.")
 
@@ -997,31 +997,31 @@ class mat4(object):
         coef22 = matrix[1][0] * matrix[3][1] - matrix[3][0] * matrix[1][1]
         coef23 = matrix[1][0] * matrix[2][1] - matrix[2][0] * matrix[1][1]
 
-        fac0 = vec4(coef00, coef00, coef02, coef03)
-        fac1 = vec4(coef04, coef04, coef06, coef07)
-        fac2 = vec4(coef08, coef08, coef10, coef11)
-        fac3 = vec4(coef12, coef12, coef14, coef15)
-        fac4 = vec4(coef16, coef16, coef18, coef19)
-        fac5 = vec4(coef20, coef20, coef22, coef23)
+        fac0 = glvector.vec4(coef00, coef00, coef02, coef03)
+        fac1 = glvector.vec4(coef04, coef04, coef06, coef07)
+        fac2 = glvector.vec4(coef08, coef08, coef10, coef11)
+        fac3 = glvector.vec4(coef12, coef12, coef14, coef15)
+        fac4 = glvector.vec4(coef16, coef16, coef18, coef19)
+        fac5 = glvector.vec4(coef20, coef20, coef22, coef23)
 
-        v0 = vec4(matrix[1][0], matrix[0][0], matrix[0][0], matrix[0][0])
-        v1 = vec4(matrix[1][1], matrix[0][1], matrix[0][1], matrix[0][1])
-        v2 = vec4(matrix[1][2], matrix[0][2], matrix[0][2], matrix[0][2])
-        v3 = vec4(matrix[1][3], matrix[0][3], matrix[0][3], matrix[0][3])
+        v0 = glvector.vec4(matrix[1][0], matrix[0][0], matrix[0][0], matrix[0][0])
+        v1 = glvector.vec4(matrix[1][1], matrix[0][1], matrix[0][1], matrix[0][1])
+        v2 = glvector.vec4(matrix[1][2], matrix[0][2], matrix[0][2], matrix[0][2])
+        v3 = glvector.vec4(matrix[1][3], matrix[0][3], matrix[0][3], matrix[0][3])
 
-        inv0 = vec4.fromVec4(v1 * fac0 - v2 * fac1 + v3 * fac2)
+        inv0 = glvector.vec4.fromVec4(v1 * fac0 - v2 * fac1 + v3 * fac2)
 
-        inv1 = vec4.fromVec4(v0 * fac0 - v2 * fac3 + v3 * fac4)
-        inv2 = vec4.fromVec4(v0 * fac1 - v1 * fac3 + v3 * fac5)
-        inv3 = vec4.fromVec4(v0 * fac2 - v1 * fac4 + v2 * fac5)
+        inv1 = glvector.vec4.fromVec4(v0 * fac0 - v2 * fac3 + v3 * fac4)
+        inv2 = glvector.vec4.fromVec4(v0 * fac1 - v1 * fac3 + v3 * fac5)
+        inv3 = glvector.vec4.fromVec4(v0 * fac2 - v1 * fac4 + v2 * fac5)
 
-        signA = vec4(+1, -1, +1, -1)
-        signB = vec4(-1, +1, -1, +1)
+        signA = glvector.vec4(+1, -1, +1, -1)
+        signB = glvector.vec4(-1, +1, -1, +1)
         inverse = mat4.fromVec4(inv0 * signA, inv1 * signB, inv2 * signA, inv3 * signB)
 
-        row0 = vec4(inverse[0][0], inverse[1][0], inverse[2][0], inverse[3][0])
+        row0 = glvector.vec4(inverse[0][0], inverse[1][0], inverse[2][0], inverse[3][0])
 
-        d0 = vec4.fromVec4(matrix[0] * row0)
+        d0 = glvector.vec4.fromVec4(matrix[0] * row0)
         d1 = (d0.x + d0.y) + (d0.z + d0.w)
 
         if d1 != 0:
@@ -1065,7 +1065,7 @@ class mat4(object):
         subFactor04 = matrix[2][0] * matrix[3][2] - matrix[3][0] * matrix[2][2]
         subFactor05 = matrix[2][0] * matrix[3][1] - matrix[3][0] * matrix[2][1]
 
-        detCof = vec4(
+        detCof = glvector.vec4(
             + (matrix[1][1] * subFactor00 - matrix[1][2] * subFactor01 + matrix[1][3] * subFactor02),
             - (matrix[1][0] * subFactor00 - matrix[1][2] * subFactor03 + matrix[1][3] * subFactor04),
             + (matrix[1][0] * subFactor01 - matrix[1][1] * subFactor03 + matrix[1][3] * subFactor05),
