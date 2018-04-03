@@ -179,6 +179,9 @@ class vec2(object):
     def __len__(self):
         return 2
 
+    def __hash__(self):
+        return hash((self.x, self.y))
+
     @property
     def length(self):
         return math.sqrt(self.x * self.x + self.y * self.y)
@@ -401,6 +404,9 @@ class vec3(object):
 
     def __len__(self):
         return 3
+
+    def __hash__(self):
+        return hash((self.x, self.y, self.z))
 
     @property
     def length(self):
@@ -640,6 +646,9 @@ class vec4(object):
 
     def __len__(self):
         return 4
+
+    def __hash__(self):
+        return hash((self.x, self.y, self.z, self.w))
 
     @property
     def length(self):
