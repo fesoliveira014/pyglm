@@ -1,6 +1,13 @@
 import math
 import glvector
 
+has_numpy = False
+try:
+    import numpy as np
+    has_numpy = True
+except:
+    has_numpy = False
+
 class mat2(object):
     def __init__(self, a=0, b=0, c=0, d=0):
         self.cols = [glvector.vec2(a,b), glvector.vec2(c,d)]
@@ -177,6 +184,12 @@ class mat2(object):
     def __repr__(self):
         return "mat2(" + str(self[0][0]) + ', ' + str(self[0][1]) + ', ' + \
                          str(self[1][0]) + ', ' + str(self[1][1]) + ")"
+
+    def asArray(self):
+        if has_numpy:
+            return np.matrix([self.cols[0].asArray(), self.cols[1].asArray()], dtype=np.float32)
+        else:
+            return [self.cols[0].asArray(), self.cols[1].asArray()]
 
     @classmethod
     def fromVec2(cls, u, v):
@@ -460,6 +473,12 @@ class mat3(object):
         h = math.trunc(self[2][1])
         i = math.trunc(self[2][2])
         return mat3(a,b,c,d,e,f,g,h,i)
+
+    def asArray(self):
+        if has_numpy:
+            return np.matrix([self.cols[0].asArray(), self.cols[1].asArray(), self.cols[2].asArray()], dtype=np.float32)
+        else:
+            return [self.cols[0].asArray(), self.cols[1].asArray(), self.cols[2].asArray()]
 
     @classmethod
     def fromVec3(cls, u, v, w):
@@ -908,6 +927,12 @@ class mat4(object):
         p = math.trunc(self[3][3])
         return mat4(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
 
+    def asArray(self):
+        if has_numpy:
+            return np.matrix([self.cols[0].asArray(), self.cols[1].asArray(), self.cols[2].asArray(), self.cols[3].asArray()], dtype=np.float32)
+        else:
+            return [self.cols[0].asArray(), self.cols[1].asArray(), self.cols[2].asArray(), self.cols[3].asArray()]
+
     @classmethod
     def fromVec4(cls, u, v, w, z):
         a = u[0]
@@ -929,7 +954,7 @@ class mat4(object):
         return cls(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
 
     @classmethod
-    def fromMat4(cls, matrix):
+    def fromMat4(cls, m):
         a = m[0][0]
         b = m[0][1]
         c = m[0][2]

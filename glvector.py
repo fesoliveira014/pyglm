@@ -1,6 +1,13 @@
 import math
 import glmatrix
 
+has_numpy = False
+try:
+    import numpy as np
+    has_numpy = True
+except:
+    has_numpy = False
+
 class vec2(object):
     def __init__(self, x=0, y=0):
         self.x = x
@@ -181,6 +188,12 @@ class vec2(object):
 
     def __hash__(self):
         return hash((self.x, self.y))
+
+    def asArray(self):
+        if has_numpy:
+            return np.array([self.x, self.y])
+        else:
+            return [self.x, self.y]
 
     @property
     def length(self):
@@ -407,6 +420,12 @@ class vec3(object):
 
     def __hash__(self):
         return hash((self.x, self.y, self.z))
+
+    def asArray(self):
+        if has_numpy:
+            return np.array([self.x, self.y, self.z])
+        else:
+            return [self.x, self.y, self.z]
 
     @property
     def length(self):
@@ -649,6 +668,12 @@ class vec4(object):
 
     def __hash__(self):
         return hash((self.x, self.y, self.z, self.w))
+
+    def asArray(self):
+        if has_numpy:
+            return np.array([self.x, self.y, self.z, self.w])
+        else:
+            return [self.x, self.y, self.z, self.w]
 
     @property
     def length(self):
